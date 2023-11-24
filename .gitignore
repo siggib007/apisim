@@ -1,0 +1,15 @@
+secrets.php
+Secrets.php
+secret.php
+*.~1~
+*.jpg
+*.png
+*.gif
+*.sql~
+.bzr/
+*.bak
+!img/PHPDemoBanner.png
+lib/
+ReviewMedia/
+*.xlsx
+*.csv

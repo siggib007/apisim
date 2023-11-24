@@ -1,0 +1,21 @@
+projects:
+  - name: "PHPDemo"
+    environments:
+      - name: "Development"
+        slug: "dev"
+        configs:
+          - slug: "dev"
+    secrets:
+      dev:
+        MYSQL_HOST: "mysql"
+        MYSQL_USER: "scriptuser"
+        MYSQL_PASSWORD: "scriptuserpwd"
+        MYSQL_DB: "PHPDemo"
+        MYSQL_ROOT_PASSWORD: "ChangeRootPwd"
+        EMAILPORT: "465"
+        EMAILPWD: "EmailPassword"
+        EMAILSERVER: "smtp.example.com"
+        EMAILUSER: "SMTPUser"
+        USESSL: "True"
+        USESTARTTLS: "False"
+        DOPPLERKEY: "setTheKey"

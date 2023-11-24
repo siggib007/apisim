@@ -1,0 +1,17 @@
+{
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MariaDB",
+      "name": "Localhost",
+      "database": "PHPDemo",
+      "password": "dBWnw88y0WuvmJdxFFWioqVEDk9BF7d8",
+      "username": "root"
+    }
+  ]
+}
