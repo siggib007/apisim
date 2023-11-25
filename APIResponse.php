@@ -185,6 +185,9 @@
     $strFormat="html";
   }
 
+  $headers = apache_request_headers();
+  $AcceptHeader = $headers["Accept"];
+
   $iArgCount = count($_GET);
   $strTitle = "API Response Tester";
   $strTestResp = "You asked for code $iResponse $text";
@@ -209,6 +212,7 @@
   $OptionsArray["OptionsDescr"] ="These can of course be chained together such as " .
     " $PageURL?sleep=234&rc=234";
 
+  //$ReturnArray["AcceptHeader"] = $AcceptHeader;
   $ReturnArray[$PagebaseName]["ReceivedArgsCount"] = $iArgCount;
   $ReturnArray[$PagebaseName]["ReceivedArgs"] = $_GET;
 
@@ -238,6 +242,7 @@
   {
     case "html":
       require("header.php");
+
       if ($iArgCount>0)
       {
         print "<h3>Received $iArgCount parameters:</h3>";
