@@ -237,14 +237,7 @@
   switch ($strFormat)
   {
     case "html":
-      print "<html>\n";
-      print "<head>\n";
-      print "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">\n";
-      print "<title>$strTitle</title>\n";
-      print "</head>\n";
-      print "<body>\n";
-      print "<center>\n";
-      print "<p><h1>Welcome to $strTitle</h1></p>\n";
+      require("header.php");
       if ($iArgCount>0)
       {
         print "<h3>Received $iArgCount parameters:</h3>";
@@ -268,10 +261,9 @@
       {
         print "<h3>$strSleepResp</h3>\n";
       }
-      print "</center>\n";
       $strIntro = str_replace("\n", "<br>\n", $strIntro);
-      print "<p>\n$strIntro</p>\n";
-      print "Options:<br>\n";
+      print "<p class=\"MainText\">\n$strIntro</p>\n";
+      print "<div class=\"MainText\">Options:<br>\n";
 
       foreach ($OptionsArray["Options"] as $Opt)
       {
@@ -281,10 +273,8 @@
         print " - $strTemp<br>\n<br>\n";
       }
       print $OptionsArray["OptionsDescr"];
-      print "<p></p>\n";
-      // print_r($_GET);
-      print "</body>\n";
-      print "</html>\n";
+      print "</div>\n";
+      require("footer.php");
       break;
     case "xml":
       header("Content-type: text/xml");
