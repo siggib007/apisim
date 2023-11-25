@@ -125,6 +125,9 @@
   $PagebaseName = basename($strPHPSelf,".php");
   $iPos = strripos($strURI, "/");
 
+  $headers = apache_request_headers();
+  $AcceptHeader = $headers["Accept"];
+
   if ($iPos>0)
   {
     $strPath = substr($strURI, 0,$iPos);
@@ -180,16 +183,26 @@
   {
     $strFormat = strtolower(($_GET['result']));
   }
+  elseif (str_contains(strtolower($AcceptHeader),"html"))
+  {
+    $strFormat="html";
+  }
+  elseif (str_contains(strtolower($AcceptHeader),"xml"))
+  {
+    $strFormat="xml";
+  }
+  elseif (str_contains(strtolower($AcceptHeader),"json"))
+  {
+    $strFormat="json";
+  }
   else
   {
     $strFormat="html";
   }
 
-  $headers = apache_request_headers();
-  $AcceptHeader = $headers["Accept"];
 
   $iArgCount = count($_GET);
-  $strTitle = "API Response Tester";
+  $strTitle = "API Simulator";
   $strTestResp = "You asked for code $iResponse $text";
   $strSleepResp = "As requested I took a $iSleep second nap";
   $strTestError = "You asked for Response Code $iResponse. " .
@@ -197,22 +210,19 @@
   $strIntro = "This page will allow you test your code for abnormal responses from API calls, " .
     "such as wrong format, slow response, or response codes (aka error codes) " .
     "such as HTTP 418 :-D\n" .
-    "Please contact s@supergeek.us with any questions, comments and complients.\n" .
-    "I might add a feature that allows you to provide the exact text you want returned. " .
-    "With proper encouragment it may happen sooner than later.";
+    "Please contact siggi@supergeek.us with any questions, comments and complients.\n" .
   $OptionsArray["Options"]["rc"]["command"] = "$PageURL?rc=234";
   $OptionsArray["Options"]["rc"]["descr"] = "Sets the HTTP response code to 234, ".
     "any number between 200 and 999 supported";
   $OptionsArray["Options"]["sleep"]["command"] = "$PageURL?sleep=123";
   $OptionsArray["Options"]["sleep"]["descr"] = "Sleeps for 123 seconds before responding";
   $OptionsArray["Options"]["format"]["command"] = "$PageURL?result=html";
-  $OptionsArray["Options"]["format"]["descr"] = "Specifies that the reponse should be in HTML. " .
+  $OptionsArray["Options"]["format"]["descr"] = "Overwrites the accepted header and specifies that the reponse should be in HTML. " .
     "Valid formats (case insensitive): HTML, XML, JSON, TXT and NONE. " .
     "Default format is HTML" ;
   $OptionsArray["OptionsDescr"] ="These can of course be chained together such as " .
     " $PageURL?sleep=234&rc=234";
 
-  //$ReturnArray["AcceptHeader"] = $AcceptHeader;
   $ReturnArray[$PagebaseName]["ReceivedArgsCount"] = $iArgCount;
   $ReturnArray[$PagebaseName]["ReceivedArgs"] = $_GET;
 
@@ -243,6 +253,7 @@
     case "html":
       require("header.php");
 
+      print "<p class=\"MainText\">\nAccept: $AcceptHeader</p>\n";
       if ($iArgCount>0)
       {
         print "<h3>Received $iArgCount parameters:</h3>";
