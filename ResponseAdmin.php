@@ -26,7 +26,7 @@
 
 	if($btnSubmit == "Save")
 	{
-    $strID = CleanSQLInput(substr(trim($_POST["ResponseID"]),0,14));
+    $strID = CleanSQLInput(substr(trim($_POST["ResponseID"]),0,49));
     $strTextName = CleanSQLInput(substr(trim($_POST["TextName"]),0,94));
     $strContent = CleanSQLInput($_POST["txtDescr"]);
     $strFormat = CleanSQLInput(substr(trim($_POST["cmbFormat"]),0,14));
@@ -36,13 +36,32 @@
     UpdateSQL($strQuery,"update");
 	}
 
+	if($btnSubmit == "Delete")
+	{
+    $strID = CleanSQLInput(substr(trim($_POST["ResponseID"]),0,49));
+
+    $strQuery = "DELETE FROM tblResponses WHERE vcResponseID = '$strID';";
+    UpdateSQL($strQuery,"delete");
+	}
+
+  if($btnSubmit == "Insert")
+	{
+    $strID = CleanSQLInput(substr(trim($_POST["ResponseID"]),0,49));
+    $strTextName = CleanSQLInput(substr(trim($_POST["TextName"]),0,94));
+    $strContent = CleanSQLInput($_POST["txtDescr"]);
+    $strFormat = CleanSQLInput(substr(trim($_POST["cmbFormat"]),0,14));
+
+    $strQuery = "INSERT INTO tblResponses (vcResponseID, iUserID, vcName, vcFormat, tResponse) VALUES ('$strID', $iUserID, '$strTextName', '$strFormat', '$strContent');";
+    UpdateSQL($strQuery,"insert");
+	}
+
 
 	//Print the normal form after update is complete or on initial load
   if($_POST["btnSubmit"] != "Edit" and $_POST["btnSubmit"] != "Insert New")
   {
     print "<div align=\"center\"><form method=\"POST\">\n<input type=\"Submit\" value=\"Insert New\" name=\"btnSubmit\"></form></div>\n";
     printpg("Update existing texts\n","h2");
-    print "<div class=SmallCenterBox\n";
+    print "<div class=MediumCenterBox>\n";
 
     $strQuery = "SELECT vcResponseID, vcName, tResponse FROM tblResponses where iUserID = $iUserID;";
     $QueryData = QuerySQL($strQuery);
@@ -58,10 +77,11 @@
         {
           print "<tr valign=\"top\">\n";
           print "<form method=\"POST\">\n";
-          print "<td class=\"lbl\"><input type=\"hidden\" value=\"$strID\" name=\"ResponseID\"> </td>\n";
-          print "<td>$strID</td>\n";
-          print "<td>$strName</td>\n";
+          print "<td><input type=\"hidden\" value=\"$strID\" name=\"ResponseID\"> </td>\n";
+          print "<td style=\"padding-right: 20px;\">$strID</td>\n";
+          print "<td style=\"padding-right: 20px;\">$strName</td>\n";
           print "<td><input type=\"Submit\" value=\"Edit\" name=\"btnSubmit\"></td>";
+          print "<td><input type=\"Submit\" value=\"Delete\" name=\"btnSubmit\"></td>";
           print "</form>\n";
           print "</tr>\n";
         }
@@ -173,13 +193,15 @@
 
   if($_POST["btnSubmit"] == "Insert New")
   {
-    $strID = "PlaceholderID";
+    $iByteCount = rand(4,8);
+    $iChunkSize = rand(3,$iByteCount*2);
+    $strID = substr(chunk_split(bin2hex(random_bytes($iByteCount)),$iChunkSize,"-"),0,-1);
     printpg("Insert New Response Text</div>\n","h2");
-    print "<div class=CenterBox\n";
+    print "<div class=CenterBox>\n";
     print "<form method=\"POST\">\n";
     print "<div class = lbl>ID: \n";
     print "$strID";
-    print "<input type=\"hidden\" name=\"ResponseID\"></div>\n";
+    print "<input type=\"hidden\" value=\"$strID\" name=\"ResponseID\"></div>\n";
     print "<div class = lbl>Name: \n";
     print "<input type=\"text\" name=\"TextName\"></div>\n";
     print "<div class = lbl>Format: \n";
@@ -191,8 +213,7 @@
     print "</select>\n</div>\n";
     print "<div class=\"lbl\">Response Text:</div>\n";
     print "<textarea name=\"txtDescr\" rows=\"10\" cols=\"90\"></textarea>\n<br>\n";
-    print "<div align=\"center\"><input type=\"Submit\" value=\"Insert\" name=\"btnSubmit\">\n";
-    print "</div>";
+    print "<div align=\"center\"><input type=\"Submit\" value=\"Insert\" name=\"btnSubmit\">\n</div>\n";
     print "</form>\n";
     print "<div align=\"center\"><form method=\"POST\">\n<input type=\"Submit\" value=\"Go Back\" name=\"btnSubmit\"></form></div>\n";
   }
