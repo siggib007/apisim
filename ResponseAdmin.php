@@ -30,7 +30,7 @@
     $strTextName = CleanSQLInput(substr(trim($_POST["TextName"]),0,94));
     $strContent = CleanSQLInput($_POST["txtDescr"]);
 
-    $strQuery = "update tblResponses set tResponse = '$strContent' WHERE vcResponseID = '$strID';";
+    $strQuery = "update tblResponses set tResponse = '$strContent', vcName = '$strTextName' WHERE vcResponseID = '$strID';";
     UpdateSQL($strQuery,"update");
 	}
 
@@ -113,7 +113,8 @@
     }
     print "<form method=\"POST\">\n";
     print "<p class = lbl>ID: \n";
-    print "<input type=\"text\" disabled value=\"$strID\" name=\"ResponseID\"></p>\n";
+    print "$strID";
+    print "<input type=\"hidden\" value=\"$strID\" name=\"ResponseID\"></p>\n";
     print "<p class = lbl>Name: \n";
     print "<input type=\"text\" value=\"$strName\" name=\"TextName\"></p>\n";
     print "<div class=\"lbl\">Response Text:</div>\n";
