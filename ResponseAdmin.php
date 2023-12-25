@@ -10,7 +10,7 @@
 
 	if($strReferer != $strPageURL and $PostVarCount > 0)
 	{
-		printPg("Invalid operation, Bad Reference!!!","error");
+		printPg("Invalid operation, Bad Operator!!!","error");
 		exit;
 	}
 	if(isset($_POST["btnSubmit"]))
@@ -54,6 +54,7 @@
         print "<form method=\"POST\">\n";
         print "<tr valign=\"top\">\n";
         print "<td class=\"lbl\"><input type=\"hidden\" value=\"$strID\" name=\"ResponseID\"> </td>\n";
+        print "<td>$strID</td>\n";
         print "<td>$strName</td>\n";
         print "<td><input type=\"Submit\" value=\"Edit\" name=\"btnSubmit\"></td>";
         print "</tr>\n";
@@ -111,9 +112,11 @@
       }
     }
     print "<form method=\"POST\">\n";
-    print "<input type=\"hidden\" value=\"$strID\" name=\"ResponseID\">";
-    print "<input type=\"hidden\" value=\"$strName\" name=\"TextName\">";
-    print "<div class=\"lbl\">$strName</div>\n";
+    print "<p class = lbl>ID: \n";
+    print "<input type=\"text\" disabled value=\"$strID\" name=\"ResponseID\"></p>\n";
+    print "<p class = lbl>Name: \n";
+    print "<input type=\"text\" value=\"$strName\" name=\"TextName\"></p>\n";
+    print "<div class=\"lbl\">Response Text:</div>\n";
     print "<textarea name=\"txtDescr\" rows=\"10\" cols=\"90\">$strResponse</textarea>\n<br>\n";
     print "<div align=\"center\"><input type=\"Submit\" value=\"Save\" name=\"btnSubmit\"></div>\n";
     print "</form>\n";
