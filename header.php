@@ -1,7 +1,7 @@
 <?php
   /*
   Copyright © 2009,2015,2022  Siggi Bjarnason.
-  Licensed under GNU GPL v3 and later. Check out LICENSE.TXT for details   
+  Licensed under GNU GPL v3 and later. Check out LICENSE.TXT for details
   or see <https://www.gnu.org/licenses/gpl-3.0-standalone.html>
 
   Header file that gets inserted everywhere and handled the menu and header for each page
@@ -248,7 +248,7 @@
     }
   }
   header("Content-Type: text/html; charset=utf-8");
-  print "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n\"http://www.w3.org/TR/html4/loose.dtd\">\n";
+  print "<!DOCTYPE html>\n";
   print "<html>\n";
   print "<head>\n";
   print "<title>$strHeader</title>\n";
