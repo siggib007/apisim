@@ -61,7 +61,7 @@
   {
     print "<div align=\"center\"><form method=\"POST\">\n<input type=\"Submit\" value=\"Insert New\" name=\"btnSubmit\"></form></div>\n";
     printpg("Update existing texts\n","h2");
-    print "<div class=MediumCenterBox>\n";
+    print "<div class=CenterBox>\n";
 
     $strQuery = "SELECT vcResponseID, vcName, tResponse FROM tblResponses where iUserID = $iUserID;";
     $QueryData = QuerySQL($strQuery);
