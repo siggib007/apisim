@@ -149,14 +149,6 @@
     print "<input type=\"text\" value=\"$strName\" name=\"TextName\"></div>\n";
     print "<div class = lbl>Format: \n";
     print "<select size=\"1\" name=\"cmbFormat\">\n";
-    if($strFormat == "html")
-    {
-      print "<option selected value=\"html\">HTML</option>\n";
-    }
-    else
-    {
-      print "<option value=\"html\">HTML</option>\n";
-    }
     if($strFormat == "xml")
     {
       print "<option selected value=\"xml\">XML</option>\n";
@@ -206,7 +198,6 @@
     print "<input type=\"text\" name=\"TextName\"></div>\n";
     print "<div class = lbl>Format: \n";
     print "<select size=\"1\" name=\"cmbFormat\">\n";
-    print "<option value=\"html\">HTML</option>\n";
     print "<option value=\"xml\">XML</option>\n";
     print "<option value=\"json\">json</option>\n";
     print "<option value=\"txt\">Text</option>\n";

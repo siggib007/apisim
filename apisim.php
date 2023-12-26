@@ -62,27 +62,54 @@
     header("$Protocol $iResponse $text");
   }
 
-  if (isset($_GET['result']))
+  $strRespError = "";
+  if (isset($_GET['id']))
   {
-    $strFormat = strtolower(($_GET['result']));
-  }
-  elseif (str_contains(strtolower($AcceptHeader),"html"))
-  {
-    $strFormat="html";
-  }
-  elseif (str_contains(strtolower($AcceptHeader),"xml"))
-  {
-    $strFormat="xml";
-  }
-  elseif (str_contains(strtolower($AcceptHeader),"json"))
-  {
-    $strFormat="json";
+    $strID = CleanReg(($_GET['id']));
+    $strQuery = "SELECT vcFormat, tResponse FROM tblResponses WHERE vcResponseID = '$strID';";
+    $QueryData = QuerySQL($strQuery);
+    if($QueryData[0] > 0)
+    {
+      $Row = $QueryData[1][0];
+      $strFormat = $Row["vcFormat"];
+      $strResponse = $Row["tResponse"];
+    }
+    else
+    {
+      $strResponse = "";
+      $strFormat = "";
+      $strRespError = "Response with ID of $strID was not found";
+    }
   }
   else
   {
-    $strFormat="html";
+    $strResponse = "";
+    $strFormat = "";
   }
 
+  if ($strFormat == "")
+  {
+    if (isset($_GET['result']))
+    {
+      $strFormat = strtolower(($_GET['result']));
+    }
+    elseif (str_contains(strtolower($AcceptHeader),"html"))
+    {
+      $strFormat="html";
+    }
+    elseif (str_contains(strtolower($AcceptHeader),"xml"))
+    {
+      $strFormat="xml";
+    }
+    elseif (str_contains(strtolower($AcceptHeader),"json"))
+    {
+      $strFormat="json";
+    }
+    else
+    {
+      $strFormat="html";
+    }
+  }
 
   $iArgCount = count($_GET);
   $strTitle = $ConfArray["ProductName"];
@@ -90,6 +117,7 @@
   $RCUpper = $ConfArray["rcupper"];
   $SampleNum = $ConfArray["samplenum"];
   $SampleResult = $ConfArray["SampleResult"];
+  $SampleString = $ConfArray["sampleText"];
   $strTestResp = "You asked for code $iResponse $text";
   $strSleepResp = "As requested I took a $iSleep second nap";
   $strTestError = "You asked for Response Code $iResponse. " .
@@ -111,8 +139,12 @@
         case "int":
           $SampleValue = $SampleNum;
           break;
-        case "string":
+        case "format":
           $SampleValue = $SampleResult;
+          $OptionType = "format string";
+          break;
+        case "string":
+          $SampleValue = $SampleString;
           break;
         default:
           $SampleValue = "";
@@ -122,6 +154,7 @@
       $OptionDescr = str_replace("xx", "$RCLower", $OptionDescr);
       $OptionDescr = str_replace("yy", "$RCUpper", $OptionDescr);
       $OptionDescr = str_replace("xystr", "$SampleResult", $OptionDescr);
+      $OptionDescr = str_replace("strid", "$SampleResult", $OptionDescr);
       $OptionsArray["Options"][$OptionCode]["command"] = "$PageURL?$OptionCode=$SampleValue";
       $OptionsArray["Options"][$OptionCode]["descr"] = "Requires $OptionType. $OptionDescr";
       $strExample .= "$OptionCode=$SampleValue&";
@@ -160,6 +193,11 @@
     }
   }
 
+  if ($strRespError != "")
+  {
+    $ReturnArray[$PagebaseName]["ProcessResp"]["Error"] = $strRespError;
+  }
+
   if ($iSleep>0)
   {
     $ReturnArray[$PagebaseName]["ProcessResp"]["Sleep"] = $iSleep;
@@ -193,6 +231,10 @@
           print "<h3>$strTestResp</h3>\n";
         }
       }
+      if ($strRespError != "")
+      {
+        print "<h3>$strRespError</h3>\n";
+      }
       if ($iSleep>0)
       {
         print "<h3>$strSleepResp</h3>\n";
@@ -216,56 +258,80 @@
       header("Content-type: text/xml");
       print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
       $ReturnXML = Array2XML($ReturnArray);
-      print "$ReturnXML";
+      if ($strResponse == "")
+      {
+        print "$ReturnXML";
+      }
+      else
+      {
+        print "$strResponse";
+      }
       break;
     case "json":
       header("Content-type: text/json");
-      $ReturnJSON = json_encode($ReturnArray);
+      if ($strResponse == "")
+      {
+        $ReturnJSON = json_encode($ReturnArray);
+      }
+      else
+      {
+        $ReturnJSON = $strResponse;
+      }
       print "$ReturnJSON";
       break;
     case "none":
-      exit;
       break;
-    case "txt":
-      header("Content-type: text/text");
-      print "Welcome to $strTitle\n";
-      if ($iArgCount>0)
-      {
-        print "Received $iArgCount parameters:\n";
-        foreach ($_GET as $key => $value)
+      case "txt":
+        header("Content-type: text/text");
+        if ($strResponse == "")
         {
-          print "$key = $value\n";
-        }
-      }
-      if ($iResponse!=0)
-      {
-        if ($iResponse < 200 or $iResponse>999)
+        print "Welcome to $strTitle\n";
+        if ($iArgCount>0)
         {
-          print "$strTestError\n";
+          print "Received $iArgCount parameters:\n";
+          foreach ($_GET as $key => $value)
+          {
+            print "$key = $value\n";
+          }
         }
-        else
+        if ($iResponse!=0)
         {
-          print "$strTestResp\n";
+          if ($iResponse < 200 or $iResponse>999)
+          {
+            print "$strTestError\n";
+          }
+          else
+          {
+            print "$strTestResp\n";
+          }
         }
-      }
-      if ($iSleep>0)
-      {
-        print "$strSleepResp\n";
-      }
-      print "\n";
-      print "\n$strIntro\n";
-      print "Options:\n";
+        if ($strRespError != "")
+        {
+          print "$strRespError\n";
+        }
 
-      foreach ($OptionsArray["Options"] as $Opt)
-      {
-        $strTemp = $Opt["command"];
-        print "$strTemp\n";
-        $strTemp = $Opt["descr"];
-        print " - $strTemp\n\n";
+        if ($iSleep>0)
+        {
+          print "$strSleepResp\n";
+        }
+        print "\n";
+        print "\n$strIntro\n";
+        print "Options:\n";
+
+        foreach ($OptionsArray["Options"] as $Opt)
+        {
+          $strTemp = $Opt["command"];
+          print "$strTemp\n";
+          $strTemp = $Opt["descr"];
+          print " - $strTemp\n\n";
+        }
+        print $OptionsArray["OptionsDescr"];
+        print "\n";
       }
-      print $OptionsArray["OptionsDescr"];
-      print "\n";
-      // print_r($_GET);
+      else
+      {
+        print "$strResponse";
+      }
       break;
 
     default:

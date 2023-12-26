@@ -82,6 +82,7 @@
   print "<td>\n<select size=\"1\" name=\"cmbType\">\n";
   print "<option value=\"int\">Integer</option>\n";
   print "<option value=\"string\">Text String</option>\n";
+  print "<option value=\"format\">Text Format</option>\n";
   print "</select>\n</td>";
 
   print "<tr>\n<td align = right class = lbl>Code: </td>\n";
@@ -122,6 +123,14 @@
         else
         {
           print "<option value=\"string\">Text String</option>\n";
+        }
+        if($Row["vcValueType"] == "format")
+        {
+          print "<option selected value=\"format\">Text Format</option>\n";
+        }
+        else
+        {
+          print "<option value=\"format\">Text Format</option>\n";
         }
         print "</select>\n</td>";
         print "<td><input type=\"text\" value=\"$Row[vcOptionCode]\" name=\"txtCode\" size=\"7\" ></td>\n";
