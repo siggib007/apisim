@@ -154,7 +154,7 @@
       $OptionDescr = str_replace("xx", "$RCLower", $OptionDescr);
       $OptionDescr = str_replace("yy", "$RCUpper", $OptionDescr);
       $OptionDescr = str_replace("xystr", "$SampleResult", $OptionDescr);
-      $OptionDescr = str_replace("strid", "$SampleResult", $OptionDescr);
+      $OptionDescr = str_replace("strid", "$SampleValue", $OptionDescr);
       $OptionsArray["Options"][$OptionCode]["command"] = "$PageURL?$OptionCode=$SampleValue";
       $OptionsArray["Options"][$OptionCode]["descr"] = "Requires $OptionType. $OptionDescr";
       $strExample .= "$OptionCode=$SampleValue&";
