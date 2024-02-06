@@ -1,6 +1,6 @@
-# phptest
-## PHP Demo Overview and history
-This started out because I wanted something quick and simple to verify that all the components where in place to make a PHP site driven by MySQL/MariaDB database. Then this grew into a demo site to test various functions and features as well as base code for a fully functioning PHP site. Except it is lacking all meaningful functionality as it is just a base to be built upon. It does however have all the base authentication, registration, setup and administration functionality. I plan to add more base features as I think of them and have time to implement them. Documentation of all the features is forthcoming.
+# API Simulator
+## API Simulator details
+This is a site you can point your API parsing code at to test how it responds to various anomalies. All the options available to you are documented at https://apisim.net/apisim.php. In short you can sleep your response for specified seconds to test timeout and slow reponse handling, you can force a specific error code response, specify the format of the response as well as the exact response text.
 
 One thing kind of unique, or weird depending on your point of view, about this site is that there isn't a single <script> element anywhere. This entire site was create without any JavaScript. This was done on purpose, mostly just to demonstrate that it is possible to create a fully functional and interesting site without any JavaScript. This is entirely pure PHP, HTML and CSS. Yes the CSS needs a lot of work but that is a separate project that maybe I will solicit help from a CSS guru at some point, not something I am worried about right now. 
 
@@ -16,14 +16,16 @@ As I alluded to above, I'm not a front end designer. While I would never claim t
 
 If you are deploying this anywhere other than your laptop for testing purposes I strongly recommend you delete EmailTest.php from the server. If an unauthorized person where to gain access to this site they could start sending emails in your name and bypassing DMARC/SPF. 
 
+If there are any questions or problems, feel free to reach out via info@apisim.net
+
 ## Deploy with Docker and Doppler
 
 To set this up using Docker and fetching secrets to Doppler run the following commands. This assumes Docker, docker-compose and Doppler CLI are already setup and that Doppler CLI is properly authenticated into your Doppler workspace. See https://infosechelp.net/secrets-management/ for how to do that if you need. This is setup such that all the secrets in a specified config (project: phpdemo, config: dev by default) are injected into the docker container at run time. If you change the values in the config you need to restart the container to get the new values injected. To work around this I inject a secret called DOPPLERKEY which contains an service API key and allows the program to fetch each secret as needed on the fly via API and therefor always have the most up to date value. While it may seem counterintuitive to have a doppler API key inside doppler, this is the logic.
 
 Run the following commands from your terminal. FYI I'm doing this on a Windows 10 box and Docker Desktop for Windows. 
 
-1. git clone https://github.com/siggib007/phptest.git phpdemo
-2. cd phpdemo
+1. git clone https://github.com/siggib007/apisim.git apisim
+2. cd apisim
 2. doppler import
 3. Adjust the secrets, either via the cli or via the website, as necessary for your environment, the doppler key is a service key you generate on the access tab inside the appropriate config. 
 4. In ExtVars.php make sure line 34 and 35, matches what you are using for project and config in Doppler. The Template uses phpdemo, while the code might be uses phpdev depending on what I was using for my testing when I last checked the code in. Also adjust next line accordingly
