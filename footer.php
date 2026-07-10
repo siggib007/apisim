@@ -1,9 +1,9 @@
 <?php
   /*
   Copyright © 2009,2015,2022  Siggi Bjarnason.
-  Licensed under GNU GPL v3 and later. Check out LICENSE.TXT for details   
+  Licensed under GNU GPL v3 and later. Check out LICENSE.TXT for details
   or see <https://www.gnu.org/licenses/gpl-3.0-standalone.html>
-  
+
   Code to be insterted at the bottom of every page.
   */
 
@@ -36,8 +36,8 @@
   }
 
   print "&nbsp;&nbsp;<a href=\"contact.php\">Contact Us</a>&nbsp;&nbsp;|\n";
-  print "&nbsp;&nbsp;Copyright &copy; 2012 <a href=\"http://www.supergeek.us\" target=\"_blank\">"
-  . "Siggi Bjarnason</a>&nbsp;&nbsp;|\n";
+  print "&nbsp;&nbsp;Copyright &copy; 2012-2026 <a href=\"http://www.securenet.is\" target=\"_blank\">"
+  . "Öruggt Net ehf (dba SecureNet)</a>&nbsp;&nbsp;|\n";
 	print "&nbsp;&nbsp;Your IP is $strRemoteIP $strHost&nbsp;&nbsp;|\n";
 	print "</p>\n";
 	print "</center>\n";
