@@ -57,7 +57,7 @@
     sleep($iSleep);
   }
 
-  if ($iResponse > 200 and $iResponse < 1000 and $iResponse!=0)
+  if ($iResponse > 200 and $iResponse < 700 and $iResponse!=0)
   {
     header("$Protocol $iResponse $text");
   }

@@ -57,7 +57,7 @@
 
 
 	//Print the normal form after update is complete or on initial load
-  if($_POST["btnSubmit"] != "Edit" and $_POST["btnSubmit"] != "Insert New")
+  if($btnSubmit != "Edit" and $btnSubmit != "Insert New")
   {
     print "<div align=\"center\"><form method=\"POST\">\n<input type=\"Submit\" value=\"Insert New\" name=\"btnSubmit\"></form></div>\n";
     printpg("Update existing texts\n","h2");
@@ -108,10 +108,10 @@
     print "</div>\n";
   }
 
-  if(isset($_POST["ResponseID"]) and $_POST["btnSubmit"] == "Edit")
+  if(isset($_POST["ResponseID"]) and $btnSubmit == "Edit")
   {
     printpg("Update existing texts</div>\n","h2");
-    print "<div class=CenterBox\n";
+    print "<div class=CenterBox>\n";
     $ResponseID = CleanReg($_POST["ResponseID"]);
     $strQuery = "SELECT vcResponseID, vcName, vcFormat, tResponse FROM tblResponses WHERE vcResponseID = '$ResponseID';";
     $QueryData = QuerySQL($strQuery);
@@ -183,7 +183,7 @@
     print "<div align=\"center\"><form method=\"POST\">\n<input type=\"Submit\" value=\"Go Back\" name=\"btnSubmit\"></form></div>\n";
   }
 
-  if($_POST["btnSubmit"] == "Insert New")
+  if($btnSubmit == "Insert New")
   {
     $iByteCount = rand(4,8);
     $iChunkSize = rand(3,$iByteCount*2);

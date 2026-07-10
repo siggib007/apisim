@@ -1,6 +1,6 @@
 #top, #bottom, #left, #right
 {
-    background: gray;
+    background: #132675;
     position: fixed;
 }
 
@@ -36,20 +36,25 @@
     bottom: 0;
 }
 
+a
+{
+    color: white;
+}
 .BlacktblHead
 {
-    background-color: gray;
+    background-color:#132675;
 }
 
 .SiteLabel
 {
-    background-color: gray;
+    background-color: #132675;
     color: red;
 }
 
 body
 {
-    background-color: #FFFFFF;
+    background-color: #132675;
+    color: white;
     font-family: "Comic Sans MS", Tahoma, Arial, Helvetica, sans-serif, "Times New Roman", Times, serif;
     margin: 20px;
     padding-bottom: 50px;
@@ -79,7 +84,7 @@ ul.nav li
     padding: 5px 5px 1px 5px;
     margin-right: 5px;
     text-decoration: none;
-    background-color: gray;
+    background-color: #132675;
     color: white;
 }
 
@@ -93,7 +98,7 @@ td.login, a.login
 {
     text-decoration: none;
     color: white;
-    background-color: gray;
+    background-color: #132675;
     font-size: 16px;
     font-weight: bold;
     text-align: right;
@@ -103,7 +108,7 @@ td.Profile, a.Profile
 {
     text-decoration: none;
     color: white;
-    background-color: gray;
+    background-color: #132675;
     font-size: 14px;
     text-align: right;
 }
@@ -114,7 +119,7 @@ a.NLSignupHead
     font-size: 14px;
     font-weight: bold;
     text-align: center;
-    color: black;
+    color: white;
     background-color: red;
     display: inline-block;
     padding: 8px 10px;
@@ -136,7 +141,7 @@ a.NLSignup
     font-weight: bold;
     text-align: center;
     color: red;
-    background-color: gray;
+    background-color: #132675;
     display: inline-block;
     padding: 8px 10px;
     text-shadow: none;
@@ -153,7 +158,7 @@ a.MapButton
     font-size: 14px;
     font-weight: bold;
     text-align: center;
-    color: Black;
+    color: white;
     background-color: White;
     display: inline-block;
     padding: 8px 10px;
@@ -172,7 +177,7 @@ a.NavButton
     font-weight: bold;
     text-align: center;
     color: White;
-    background-color: gray;
+    background-color: #132675;
     display: inline-block;
     padding: 8px 10px;
     text-shadow: none;
@@ -228,7 +233,7 @@ th.Calendar
     border-style: solid;
     border-color: white;
     font-size: 16px;
-    background-color: gray;
+    background-color: #132675;
     color: white;
     font-weight: bold;
 }
@@ -265,7 +270,7 @@ ul.PL
 
 p.AddrBlock
 {
-    background-color: gray;
+    background-color: #132675;
     color: white;
     font-weight: bold;
     text-align: center;
@@ -292,7 +297,7 @@ td.Welcome
 {
     text-decoration: none;
     color: whitesmoke;
-    background-color: gray;
+    background-color: #132675;
     font-size: 14px;
     font-weight: bold;
     font-style: italic;
@@ -326,14 +331,14 @@ ul.nav a
 {
     text-decoration: none;
     color: #FFFFFF;
-    background-color: grey;
+    background-color: #132675;
 }
 
 ul.nav a:visited
 {
     text-decoration: none;
     color: white;
-    background-color: gray;
+    background-color: #132675;
 }
 
 ul.nav a:hover {
@@ -381,7 +386,7 @@ ul.nav a:hover {
     padding-top: 20px;
     padding-bottom: 20px;
     text-align: left;
-    background: gray;
+    background: #132675;
     color: white;
     position: fixed;
     bottom: 0px;
@@ -405,7 +410,7 @@ ul.nav a:hover {
 }
 
 .Header {
-    background-color: gray;
+    background-color: #132675;
     font-size: 14px;
     margin-right: 10px;
     margin-left: 10px;
@@ -481,7 +486,7 @@ ul.nav a:hover {
 
 .SubHead {
     text-align: center;
-    background-color: gray;
+    background-color: #132675;
     /*height: 40px;*/
     position: relative;
     top: -20px;
@@ -489,7 +494,7 @@ ul.nav a:hover {
 
 .SubHead2 {
     text-align: center;
-    background-color: gray;
+    background-color: #132675;
     position: relative;
     top: -40px;
 }
@@ -598,7 +603,7 @@ textarea.LargeArea
 {
     font-size: 17px;
     font-weight: bold;
-    color: black;
+    color: white;
     margin-left: 10px;
 }
 
@@ -606,7 +611,7 @@ textarea.LargeArea
 {
     font-size: 20px;
     font-weight: bold;
-    color: gray;
+    color: white;
 }
 
 .BlueNote
@@ -614,6 +619,7 @@ textarea.LargeArea
     font-size: 20px;
     text-align: center;
     color: #0000FF;
+    background-color: whitesmoke;
     font-weight: 700;
     margin: 5px;
 }
@@ -621,14 +627,14 @@ textarea.LargeArea
 .lbl
 {
     font-size:16px;
-    color: black;
+    color: white;
     font-weight:bold;
 }
 
 .lblright
 {
     font-size:16px;
-    color: black;
+    color: white;
     font-weight:bold;
     text-align: right;
 }
@@ -662,6 +668,7 @@ textarea.LargeArea
     font-size: 18px;
     font-weight: 700;
     color: #0000FF;
+    background-color: whitesmoke;
     text-align: center;
 }
 

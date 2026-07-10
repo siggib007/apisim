@@ -28,7 +28,7 @@
   {
     $ROOTPATH = "/";
   }
-  $strURL = "http://" . $strHost . $ROOTPATH;
+  $strURL = "https://" . $strHost . $ROOTPATH;
   $CSSName = $ROOTPATH . $CSSName;
 
   $HowMany = count($strPageNameParts);
@@ -369,7 +369,17 @@
     {
       $key = str_replace(" ", "&nbsp;", $Row["vcTitle"]);
       $value = $Row["vcLink"];
-      $FileName = $ROOTPATH . $value;
+      $pos = strpos($value,"http");
+
+      if ($pos !== false)
+      {
+        $FileName = $value;
+      }
+      else
+      {
+        $FileName = $ROOTPATH . $value;
+      }
+
       if($Row["bNewWindow"] == 1)
       {
         $target = "_blank";
@@ -416,7 +426,16 @@
       {
         $key = str_replace(" ", "&nbsp;", $Row["vcTitle"]);
         $value = $Row["vcLink"];
-        $FileName = $ROOTPATH . $value;
+        $pos = strrpos($value,"http");
+        if ($pos === false)
+        {
+          $FileName = $value;
+        }
+        else
+        {
+          $FileName = $ROOTPATH . $value;
+        }
+
         if($Row["bNewWindow"] == 1)
         {
           $target = "_blank";
@@ -517,7 +536,16 @@
         {
           $key = str_replace(" ", "&nbsp;", $Row["vcTitle"]);
           $value = $Row["vcLink"];
-          $FileName = $ROOTPATH . $value;
+          $pos = strrpos($value,"http");
+          if ($pos === false)
+          {
+            $FileName = $value;
+          }
+          else
+          {
+            $FileName = $ROOTPATH . $value;
+          }
+
           if($Row["bNewWindow"] == 1)
           {
             $target = "_blank";
