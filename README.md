@@ -48,18 +48,22 @@ If you would rather deploy this manually to PHP server and a mySQL or MariaDB se
 
 If you want to deploy this to a shared hosting provider where you can't create environment variables but you want to use Doppler, AKEYLESS or other system that require and API key, just create a php file that isn't tracked by git or any other system and has extra strict file access permissions on it and place the following content in it. 
 
-`<?php
+```
+<?php
 putenv("DOPPLERKEY=dp.st.prd.xyzabc...");
 require("DopplerVar.php");
-?>`
+?>
+```
 
 If you want to use AKEYLESS
 
-`<?php
+```
+<?php
 putenv("KEYLESSID=p-xyzabc...");
 putenv("KEYLESSKEY=fullredactedsupersecret");
 require("DopplerVar.php");
-?>`
+?>
+```
 
 Say you name it secrets.php then have the last line in ExtVars.php be as follows:
 
